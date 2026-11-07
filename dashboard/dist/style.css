@@ -1,0 +1,1105 @@
+/*
+ * Initiatives — web dashboard page styles (phone-first).
+ * Colors come from the dashboard theme variables only, so the page reskins with the active theme.
+ * Every selector starts with an .ini- class (the root is .ini-m), so nothing styles the host dashboard.
+ */
+
+.ini-m {
+  --ini-border: var(--color-border, rgba(127, 127, 127, 0.35));
+  --ini-muted: var(--color-muted-foreground, #888);
+  --ini-fg: var(--color-foreground, inherit);
+  --ini-primary: var(--color-primary, #7c6cf0);
+  --ini-bad: var(--color-destructive, #dc2626);
+  --ini-warn: var(--color-warning, #d29922);
+  --ini-good: var(--color-success, #2ea043);
+  --ini-card: var(--color-card, transparent);
+  --ini-surface: var(--color-card, var(--color-popover, #16181d));
+  /* One knob for every type size below; phones shrink it, the 720px breakpoint restores 1. */
+  --ini-text-scale: 0.92;
+  width: 100%;
+  /* One column on phones and narrow windows; wide screens get a second column at the 1100px breakpoint. */
+  max-width: 760px;
+  /* Left-aligned like the dashboard's own page header, so the title sits over the column. */
+  margin: 0;
+  padding: 8px 10px calc(18px + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  color: var(--ini-fg);
+  /* Phone default; the column widens to 14px at the 720px breakpoint. */
+  font-size: 13px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ini-m *,
+.ini-m *::before,
+.ini-m *::after {
+  box-sizing: border-box;
+}
+
+.ini-m code,
+.ini-m pre {
+  background: transparent !important;
+  color: inherit;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.85em;
+}
+
+.ini-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.ini-header__label {
+  color: var(--ini-muted);
+  font-size: calc(0.8rem * var(--ini-text-scale));
+}
+
+/* A long timestamp/count line shortens instead of wrapping the Refresh button onto its own row. */
+.ini-ellipsis {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ini-h1 {
+  margin: 0;
+  font-size: calc(1.05rem * var(--ini-text-scale));
+  font-weight: 650;
+}
+
+.ini-h2 {
+  margin: 6px 0 0;
+  font-size: calc(0.95rem * var(--ini-text-scale));
+  font-weight: 650;
+}
+
+.ini-h4 {
+  margin: 3px 0 0;
+  font-size: calc(0.74rem * var(--ini-text-scale));
+  font-weight: 600;
+  color: var(--ini-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ini-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(max-content, 1fr));
+  overflow-x: auto;
+  gap: 2px;
+  padding: 3px;
+  margin: 0 0 8px;
+  border: 1px solid var(--ini-border);
+  border-radius: 10px;
+  background: var(--ini-surface);
+}
+
+.ini-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 0 6px;
+  white-space: nowrap;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ini-muted);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: calc(0.86rem * var(--ini-text-scale));
+}
+
+.ini-tab--on {
+  background: color-mix(in srgb, var(--ini-primary) 18%, transparent);
+  color: var(--ini-fg);
+}
+
+/* What waits on the user, not a count of initiatives: a filled badge, hidden at zero. */
+.ini-tab__badge {
+  min-width: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--ini-warn);
+  color: #111;
+  font-size: calc(0.72rem * var(--ini-text-scale));
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+
+.ini-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ini-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ini-wrap {
+  flex-wrap: wrap;
+}
+
+.ini-between {
+  justify-content: space-between;
+}
+
+.ini-muted {
+  color: var(--ini-muted);
+  font-size: calc(0.8rem * var(--ini-text-scale));
+}
+
+.ini-italic {
+  font-style: italic;
+}
+
+.ini-mono {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: calc(0.74rem * var(--ini-text-scale));
+}
+
+.ini-strong {
+  font-weight: 600;
+}
+
+.ini-bad {
+  color: var(--ini-bad);
+  font-size: calc(0.84rem * var(--ini-text-scale));
+}
+
+.ini-empty {
+  padding: 10px;
+  border: 1px dashed var(--ini-border);
+  border-radius: 10px;
+  color: var(--ini-muted);
+  text-align: center;
+}
+
+.ini-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--ini-border);
+  border-radius: 10px;
+  background: var(--ini-card);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.ini-card--link {
+  cursor: pointer;
+}
+
+.ini-card--link:active {
+  background: color-mix(in srgb, var(--ini-primary) 8%, var(--ini-card));
+}
+
+.ini-card--warn {
+  border-color: color-mix(in srgb, var(--ini-warn) 55%, transparent);
+}
+
+.ini-question {
+  margin: 0;
+  font-size: calc(0.94rem * var(--ini-text-scale));
+  font-weight: 600;
+}
+
+.ini-context {
+  font-size: calc(0.84rem * var(--ini-text-scale));
+  white-space: pre-wrap;
+}
+
+.ini-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 6px 8px;
+  border-left: 3px solid var(--ini-primary);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ini-primary) 7%, transparent);
+  font-size: calc(0.84rem * var(--ini-text-scale));
+}
+
+.ini-pill {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 3px;
+  padding: 1px 5px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: calc(0.72rem * var(--ini-text-scale));
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.ini-row > .ini-pill:first-child,
+.ini-pill:first-child {
+  margin-left: 0;
+}
+
+.ini-pill--muted {
+  color: var(--ini-muted);
+}
+
+.ini-pill--good {
+  color: var(--ini-good);
+}
+
+.ini-pill--warn {
+  color: var(--ini-warn);
+}
+
+.ini-pill--bad {
+  color: var(--ini-bad);
+}
+
+.ini-options {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ini-option {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid var(--ini-border);
+  border-radius: 8px;
+  font-size: calc(0.86rem * var(--ini-text-scale));
+}
+
+.ini-option__hit {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 7px 9px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ini-option__refs {
+  padding: 0 9px 7px 33px;
+  color: var(--ini-muted);
+  font-size: calc(0.78rem * var(--ini-text-scale));
+}
+
+.ini-option--picked {
+  border-color: var(--ini-primary);
+  background: color-mix(in srgb, var(--ini-primary) 14%, transparent);
+}
+
+.ini-option--disabled .ini-option__hit {
+  opacity: 0.6;
+}
+
+.ini-radio {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  border: 2px solid var(--ini-muted);
+  border-radius: 50%;
+}
+
+.ini-option--picked .ini-radio {
+  border-color: var(--ini-primary);
+  box-shadow: inset 0 0 0 3px var(--ini-surface), inset 0 0 0 9px var(--ini-primary);
+}
+
+.ini-option__id {
+  flex: none;
+  font-weight: 700;
+}
+
+.ini-option__label {
+  flex: 1;
+  min-width: 0;
+}
+
+.ini-option__label .ini-pill {
+  margin-left: 6px;
+}
+
+/* 16px stops iOS Safari from zooming into the field on focus. */
+.ini-input,
+.ini-select {
+  width: 100%;
+  min-height: 38px;
+  padding: 8px;
+  border: 1px solid var(--ini-border);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 16px;
+  resize: none;
+}
+
+.ini-select {
+  width: auto;
+  max-width: 55%;
+}
+
+.ini-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ini-actions .ini-row > .ini-btn {
+  flex: 1;
+}
+
+.ini-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: calc(0.85rem * var(--ini-text-scale));
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ini-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* A disabled primary button reads as disabled, not as a low-contrast primary. */
+.ini-btn--primary:disabled {
+  opacity: 1;
+  background: transparent;
+  border: 1px dashed var(--ini-border);
+  color: var(--ini-muted);
+}
+
+.ini-btn--icon {
+  min-width: 44px;
+  padding: 6px 8px;
+}
+
+.ini-btn--block {
+  width: 100%;
+}
+
+.ini-btn--primary {
+  background: var(--ini-primary);
+  color: var(--color-primary-foreground, #fff);
+}
+
+.ini-btn--danger {
+  background: var(--ini-bad);
+  color: var(--color-destructive-foreground, #fff);
+}
+
+.ini-btn--outline {
+  border-color: var(--ini-border);
+}
+
+.ini-btn--ghost {
+  color: var(--ini-muted);
+}
+
+.ini-result {
+  font-size: calc(0.8rem * var(--ini-text-scale));
+}
+
+.ini-notice {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--ini-primary);
+  border-radius: 8px;
+  font-size: calc(0.84rem * var(--ini-text-scale));
+}
+
+.ini-notice--bad {
+  border-color: var(--ini-bad);
+}
+
+.ini-fold {
+  border: 1px solid var(--ini-border);
+  border-radius: 10px;
+}
+
+.ini-fold__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ini-fold__title {
+  flex: 1;
+}
+
+.ini-fold__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 10px 10px;
+}
+
+.ini-chevron {
+  width: 1em;
+  color: var(--ini-muted);
+}
+
+.ini-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--ini-border);
+  font-size: calc(0.84rem * var(--ini-text-scale));
+}
+
+.ini-line:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.ini-line__text {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.ini-cycle-mini {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  font-size: calc(0.8rem * var(--ini-text-scale));
+}
+
+.ini-cycle-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 34px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ini-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1px 8px;
+  margin: 0;
+  font-size: calc(0.8rem * var(--ini-text-scale));
+}
+
+.ini-meta dt {
+  color: var(--ini-muted);
+}
+
+.ini-meta dd {
+  margin: 0;
+}
+
+.ini-cardrow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 0;
+  border-top: 1px solid var(--ini-border);
+  font-size: calc(0.82rem * var(--ini-text-scale));
+}
+
+.ini-link {
+  color: var(--ini-primary);
+  text-decoration: underline;
+}
+
+.ini-observation {
+  padding-left: 8px;
+  border-left: 2px solid var(--ini-border);
+  font-size: calc(0.8rem * var(--ini-text-scale));
+}
+
+.ini-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: color-mix(in srgb, #000 45%, transparent);
+}
+
+.ini-sheet__panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 820px;
+  max-height: 92vh;
+  max-height: 92dvh;
+  border-radius: 14px 14px 0 0;
+  background: var(--ini-surface);
+  color: var(--ini-fg);
+}
+
+.ini-sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 6px 6px 12px;
+  border-bottom: 1px solid var(--ini-border);
+}
+
+.ini-sheet__title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ini-sheet__body {
+  padding: 8px 12px calc(12px + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ini-doc {
+  margin: 6px 0 0;
+  white-space: pre-wrap;
+  font-size: calc(0.78rem * var(--ini-text-scale));
+  line-height: 1.45;
+}
+
+@media (min-width: 720px) {
+  .ini-m {
+    --ini-text-scale: 1;
+    font-size: 14px;
+  }
+  .ini-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .ini-actions > .ini-btn--block {
+    width: auto;
+    flex: 1 1 200px;
+  }
+  .ini-sheet {
+    align-items: center;
+  }
+  .ini-sheet__panel {
+    border-radius: 14px;
+  }
+}
+
+/* ---- Tasks ---- */
+
+.ini-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ini-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ini-muted);
+  font-size: calc(0.7rem * var(--ini-text-scale));
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ini-task-meta {
+  color: var(--ini-muted);
+  font-size: calc(0.76rem * var(--ini-text-scale));
+  overflow-wrap: anywhere;
+}
+
+/* The date never splits at its hyphens; long task ids may wrap anywhere. */
+.ini-task-meta span:first-child {
+  white-space: nowrap;
+}
+
+.ini-chip {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 0 10px;
+  border: 1px solid var(--ini-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ini-muted);
+  font: inherit;
+  font-size: calc(0.82rem * var(--ini-text-scale));
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ini-chip--on {
+  border-color: var(--ini-primary);
+  background: color-mix(in srgb, var(--ini-primary) 18%, transparent);
+  color: var(--ini-fg);
+  font-weight: 600;
+}
+
+.ini-task-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ini-task-ref {
+  margin-bottom: 4px;
+  font-size: calc(0.78rem * var(--ini-text-scale));
+}
+
+.ini-sheet__panel:focus {
+  outline: none;
+}
+
+.ini-task-head .ini-pill:first-child {
+  margin-left: 0;
+}
+
+.ini-task-detail {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ini-border);
+}
+
+.ini-task-actions .ini-btn {
+  flex: 1 1 40%;
+}
+
+.ini-field .ini-h4 {
+  margin-bottom: 3px;
+}
+
+.ini-pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+}
+
+.ini-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ini-clamp--3 {
+  -webkit-line-clamp: 3;
+}
+
+.ini-more {
+  align-self: flex-start;
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0 0 0 -6px;
+  padding: 0 6px;
+  border: 0;
+  background: transparent;
+  color: var(--ini-primary);
+  font: inherit;
+  font-size: calc(0.8rem * var(--ini-text-scale));
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* The status summary sits under the clickable header, so its More toggle is not a button inside a button. */
+.ini-unit__summary {
+  padding: 0 10px 10px;
+}
+
+/* Document buttons stay inside a phone screen: the file name shortens instead of running off the edge. */
+.ini-docs > .ini-btn {
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+.ini-docs .ini-ellipsis {
+  display: block;
+}
+
+/* Waiting on you: the step the user owes leads; blocked cards are red, the rest amber. */
+.ini-waiting {
+  border-left: 3px solid var(--ini-warn);
+}
+
+.ini-waiting--blocked {
+  border-left-color: var(--ini-bad);
+}
+
+.ini-waiting__step {
+  font-size: calc(0.86rem * var(--ini-text-scale));
+}
+
+.ini-waiting__step .ini-label {
+  margin-bottom: 1px;
+}
+
+/* A list of peer cards: one column, two on wide screens; cards in a row share its height, so no ragged gaps. */
+.ini-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+  gap: 8px;
+}
+
+.ini-notice__text {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* One card contains a clickable initiative header and an independent Reviews subsection. */
+.ini-unit {
+  padding: 0;
+  gap: 0;
+  /* Clip the header's pressed background to the card's rounded corners. */
+  overflow: hidden;
+}
+
+.ini-unit__header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  min-height: 32px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ini-unit__header:active {
+  background: color-mix(in srgb, var(--ini-primary) 8%, var(--ini-card));
+}
+
+.ini-unit__reviews {
+  padding: 8px 10px 10px;
+  border-top: 1px solid var(--ini-border);
+}
+
+.ini-unit__reviews .ini-reviewgroup--embedded {
+  padding: 0;
+  border-left: 0;
+}
+
+.ini-reviewgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 1px 1px 4px 8px;
+  border-left: 2px solid color-mix(in srgb, var(--ini-primary) 45%, transparent);
+}
+
+.ini-reviewgroup__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 2px 4px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ini-reviewgroup__head .ini-pill {
+  margin-left: auto;
+}
+
+.ini-unassigned {
+  padding: 8px;
+  border: 1px dashed var(--ini-border);
+  border-radius: 10px;
+}
+
+/* An initiative with something for the user: an accent edge, so the top of the list reads as a queue. */
+.ini-unit--attention {
+  border-left: 3px solid var(--ini-warn);
+}
+
+.ini-unit__chevron {
+  margin-left: auto;
+  color: var(--ini-muted);
+  font-size: calc(1rem * var(--ini-text-scale));
+  line-height: 1;
+}
+
+/* Flags sit on their own line under the goal; a pill inside a wrapper keeps the row's spacing. */
+.ini-flags {
+  gap: 4px;
+}
+
+.ini-flags .ini-pill,
+.ini-flag .ini-pill {
+  margin-left: 0;
+}
+
+/*
+ * The dashboard shell renders its own page title in a `header[role="banner"]` above the plugin page. On this
+ * page that band repeats the selected tab, so it is hidden from here. Scoped with :has() to the mounted page,
+ * so no other dashboard route loses its header, and limited to the title band (the app bar, with the menu
+ * button, is a different element). Remove this block if the shell changes its banner markup.
+ */
+body:has(.ini-m) header[role="banner"] {
+  display: none;
+}
+
+/* ---- Metrics ---- */
+
+.ini-kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.ini-kpi {
+  padding: 7px 9px;
+  border: 1px solid var(--ini-border);
+  border-radius: 10px;
+  background: var(--ini-card);
+}
+
+.ini-kpi__value {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: calc(1.1rem * var(--ini-text-scale));
+  font-weight: 650;
+}
+
+.ini-kpi__delta {
+  font-size: calc(0.72rem * var(--ini-text-scale));
+  font-weight: 600;
+}
+
+.ini-tone--good {
+  color: var(--ini-good);
+}
+
+.ini-tone--bad {
+  color: var(--ini-bad);
+}
+
+.ini-tone--muted {
+  color: var(--ini-muted);
+}
+
+.ini-chart svg {
+  display: block;
+  color: var(--ini-muted);
+}
+
+.ini-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  color: var(--ini-muted);
+  font-size: calc(0.72rem * var(--ini-text-scale));
+}
+
+.ini-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ini-legend__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.ini-notes {
+  margin: 4px 0 0;
+  padding-left: 16px;
+}
+
+@media (min-width: 720px) {
+  .ini-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* A Kanban card ID inside text: a tappable mono link that keeps the line's flow. */
+.ini-cardref {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ini-primary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  position: relative;
+}
+
+/* A card ID reads as inline text but takes a finger: an invisible 44px-tall hit area around it. */
+.ini-cardref::after {
+  content: '';
+  position: absolute;
+  inset: -15px -4px;
+}
+
+/* Cycle lines under an initiative's header: a tap opens the initiative at that cycle. */
+.ini-unit__cycles {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 10px 10px;
+}
+
+.ini-unit__cycles .ini-cycle-mini {
+  cursor: pointer;
+}
+
+/* Board: one column per stage. A phone swipes column by column; wide screens show all four. */
+.ini-board {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 86%);
+  gap: 10px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+}
+
+.ini-board__col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid var(--ini-border);
+  border-radius: 12px;
+  scroll-snap-align: start;
+}
+
+.ini-board__tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.ini-board__title {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ini-fg);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ini-grow {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media (min-width: 720px) {
+  .ini-board {
+    grid-auto-columns: minmax(260px, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .ini-board {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow-x: visible;
+  }
+}
+
+/* Wide desktop browsers: the page uses the width, and peer cards and charts sit two to a row. */
+@media (min-width: 1100px) {
+  .ini-m {
+    max-width: 1280px;
+  }
+  .ini-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ini-kpis {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  # The Hermes release the plugin's floor (`requires_hermes`) names. Bump both together.
+  HERMES_REF: v0.23.0
+  # Our own release-age policy for dependencies (Hermes's 3-day check does not cover plugins).
+  UV_EXCLUDE_NEWER: "3 days"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: plugin
+
+      - uses: actions/checkout@v4
+        with:
+          repository: NousResearch/hermes-agent
+          ref: ${{ env.HERMES_REF }}
+          path: hermes-agent
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.14"  # Hermes v0.23.0 gates its core dependencies on Python >= 3.14
+
+      - name: Install Hermes and the plugin's dependencies
+        working-directory: hermes-agent
+        run: |
+          uv venv venv
+          uv pip install --python venv/bin/python -e '.[telegram]' ruff pytest
+          uv pip install --python venv/bin/python -r <(python3 -c "import tomllib;print('\n'.join(tomllib.load(open('../plugin/pyproject.toml','rb'))['project']['dependencies']))")
+
+      - name: Lint
+        working-directory: plugin
+        run: ../hermes-agent/venv/bin/python -m ruff check .
+
+      - name: Validate the plugin (catalog admission checks)
+        working-directory: plugin
+        run: ../hermes-agent/venv/bin/hermes plugins validate .
+
+      - name: Tests (isolated HERMES_HOME; never touches a real profile)
+        working-directory: plugin
+        env:
+          PYTHONPATH: ${{ github.workspace }}/hermes-agent
+        run: ../hermes-agent/venv/bin/python -m pytest -q -p no:randomly

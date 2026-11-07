@@ -1,0 +1,26 @@
+{
+  "projects": [
+    {
+      "id": "my-project",
+      "label": "My project",
+      "root": "/absolute/path/to/initiatives",
+      "kanban_board": "my-board",
+      "cwd": "/absolute/path/to/repo",
+      "intake_assignee": "planner",
+      "plan_assignee": "planner",
+      "plan_skills": [],
+      "policy_skill": null,
+      "worker_profiles": ["coder", "reviewer", "planner"],
+      "github_repo": null,
+      "merge_reviewer": null
+    }
+  ],
+  "review_target": null,
+  "review_approvers": [],
+  "owner_name": "the user",
+  "timezone": "",
+  "push_start_hour": 8,
+  "push_end_hour": 24,
+  "digest_at": "08:30",
+  "alert_jobs": []
+}

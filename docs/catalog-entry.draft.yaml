@@ -1,0 +1,17 @@
+name: initiatives
+repo: https://github.com/superaitaotao/hermes-initiatives
+sha: 0000000000000000000000000000000000000000  # replace with the public repo's pinned 40-character commit
+description: "Initiatives, cycles and a decision queue above Hermes Kanban: Markdown initiatives in a folder you choose (an Obsidian vault works), each run in measured cycles (question, hypothesis, measurement contract, verdict, disposition) linked to Kanban cards; one Review queue for every decision that needs you (Kanban human gates, cycle gates, idea triage, asks other jobs file) answered in the Desktop page, the web dashboard tab, Telegram buttons or a typed `D3 A` reply; rules learned from your answers that agents may apply only after you delegate them, and that you can overrule. Optional autonomy layer: `hermes initiatives setup` creates paused-then-resumed cron jobs (Kanban recovery and the review tick) behind zero-token wake gates, and bundles the kanban-sdlc-orchestration and kanban-human-gates skills. Stock Hermes; no patched core required. Disclosure — reads your initiative root(s), Kanban board databases (read-only), each lane profile's state.db for delivery metrics, and cron job output for the jobs you list in settings; writes its own data under ~/.hermes/plugin-data/initiatives/ (host-wide, shared by all profiles) and initiative/cycle/idea/task Markdown through locked, validated writers; changes Kanban only by running the `hermes kanban` CLI when you (or a rule you delegated) apply an option; a post_gateway_admission hook reads messages only in the configured review chat/topic and consumes answer lines from configured approvers; a Telegram callback handler (native client) applies button taps only from that chat/topic and only by user ids in review_approvers (default: the owner of a private review chat); calls the Telegram Bot API with the bot token Hermes already holds (via agent.secret_scope / hermes_cli.config.load_env) to push decisions with inline buttons and edit them after a tap, and runs `hermes send` otherwise; the optional recovery wake gate calls `gh` (PRs and main CI of a configured repo) and optionally `gcloud` for configured Cloud Run services; the setup command writes small wrapper scripts into the target profile's scripts/ directory and creates cron jobs there, which then run as ordinary Hermes cron jobs under that profile's tools and approvals. No background process of its own, no telemetry. POSIX only."
+maintainer: superaitaotao
+tier: community
+category: automation
+requires_hermes: ">=0.23.0"
+docs_url: https://github.com/superaitaotao/hermes-initiatives#readme
+version: "0.1.0"
+platforms: []
+capabilities:
+  provides_tools: []
+  provides_hooks:
+    - post_gateway_admission
+  provides_middleware: []
+  requires_env: []

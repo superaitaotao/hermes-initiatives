@@ -1,0 +1,10 @@
+name: initiatives
+version: 0.1.0
+description: "Initiatives, cycles, idea triage, and the daily review above Kanban cards. The review executor writes answers back to Kanban (via the hermes CLI) and to cycle and idea files; profile-agnostic."
+author: superaitaotao
+license: MIT
+kind: standalone
+requires_hermes: ">=0.23.0"
+# Python dependencies are declared in pyproject.toml (Hermes reads it first).
+provides_hooks:
+  - post_gateway_admission
