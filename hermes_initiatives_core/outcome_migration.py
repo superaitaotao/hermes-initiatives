@@ -64,7 +64,9 @@ ENVIRONMENT_SURFACES = {
 PRODUCTION_TERMS = re.compile(r"\b(?:production|prod|cloud run|deploy(?:ed|ment|s)?|promot(?:e|ed|ion)|live|gke|cutover)\b", re.I)
 MAIN_CI_TERMS = re.compile(r"\b(?:ci|ci\.ya?ml|github actions|workflow run|browser-tests|main run)\b", re.I)
 RUNTIME_TERMS = re.compile(r"\b(?:runtime|worker|daemon|cron|scheduler|background job|agent session|bench)\b", re.I)
-AMBIGUOUS_TERMS = re.compile(r"\b(?:staging|shadow|canary|pre-?prod(?:uction)?|integration-vm|private (?:node|host|server))\b", re.I)
+AMBIGUOUS_TERMS = re.compile(
+    r"\b(?:staging|shadow|canary|pre-?prod(?:uction)?|integration-vm|private (?:node|host|server))\b", re.I
+)
 # A repository-relative script path: any directory chain (``scripts/x.py``, ``backend/tools/x.py``,
 # ``project/agents/scripts/x.py``, ``origin/main:backend/x.py``) ending in a script, or a virtualenv binary.
 # URL paths and absolute paths are not matched.
